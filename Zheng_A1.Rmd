@@ -1,6 +1,6 @@
 ---
 title: "EDPS 845 Assignment 1"
-author: "Tony Albano"
+author: "Mingying (Emily) Zheng"
 ---
 
 ## Overview
