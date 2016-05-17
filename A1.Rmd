@@ -1,6 +1,8 @@
+
 ---
 title: "EDPS 845 Assignment 1"
-author: "Tony Albano"
+author: "Mingying (Emily) Zheng"
+output: pdf
 ---
 
 ## Overview
@@ -9,8 +11,11 @@ Demonstrate your mastery of concepts and procedures covered in *An Introduction 
 
 Complete this assignment by responding to each question below using your own original code, in addition to answering any questions. Follow Google's [R coding conventions](https://google.github.io/styleguide/Rguide.xml), and use [R markdown](http://rmarkdown.rstudio.com/index.html) formatting for your responses, with example R code written as
 
-```{r}
+```{r, eval = FALSE}
 # Comment within some example code
+#HERE you can write any r codes.
+x<- rnorm (100)
+mean(x)
 ```
 
 Your file should have an Rmd extension, and you should check that it compiles to HTML using the *Knit* command in RStudio (this runs `knitr::knit()` on the file). Note that you can already *Knit* this file to see how it works.
@@ -21,62 +26,194 @@ Your file should have an Rmd extension, and you should check that it compiles to
 
 1. Show that you can access the home page for the HTML R help menu, as well as help files for individual functions.
 
+```{r, eval = FALSE}
+# The help function in HTML format by running
+help.start()
+
+# The specific named help function, for example solve OR covariance, the commands are
+help (solve)
+help (cov)
+
+# An alternatives are
+?solve
+?cov
+
+# ?? allows searching for help in various ways (such as the referred topics in different contexts)
+##?? can be used to search for the topics beyond the fundemental functions by R.
+###?? can be very useful in finding any related topics you are interested in.
+??solve
+??cov
+??IRT
+
+#The examples on a help topic can be run by
+example(solve)
+example(cov)
+
+
+# Windows version of R, we can use this option for help.
+?help
+```
+
 2. Demonstrate correct and incorrect naming of R objects.
 
+```{r, eval = FALSE}
+#File names
+## File Names should end in .R and be meaningful.
+### Good file name
+myname.R
+### Bad file name
+myna.R
+
+# Correct naming--normally all alphanumeric symbols are allowed plus"."
+## if it starts with ‘.’ the second character must not be a digit.
+### R commands are case sensative.
+vars10<-c(1, 3, 5, 7, 9, 2, 4, 6, 8, 10)
+presmoothing.formula <-function (x, ...).
+A5<-c(10, 20, 30, 40, 50)
+a5<-c(11, 22, 33, 44, 55)
+myname <- "Emily"
+EDPS845allusers <- c("Tony",  "Yage",  "Jayden",  "Mingying(Emily)", "Catherine (katie)", "Pamela (Pam)", "Liuhan (Sophie)",  "Mark", "Brooke", "Chansuk", "Benjamin (Ben)")
+EDPS845students <- c("Yage",  "Jayden",  "Mingying(Emily)", "Catherine (katie)", "Pamela (Pam)", "Liuhan (Sophie)",  "Mark", "Brooke", "Chansuk", "Benjamin (Ben)")
+# Incorrect naming
+10vars<-c(1, 3, 5, 7, 9, 2, 4, 6, 8, 10)
+.6v<-c(1, 2, 3, 4, 5, 6)
+.10<-c(1, 3, 5, 7, 9, 2, 4, 6, 8, 10)
+_v10<-c(1, 3, 5, 7, 9, 2, 4, 6, 8, 10)
+_v<-c(1, 3, 5, 7, 9, 2, 4, 6, 8, 10)
+
+```
+
 3. How do you list all available objects in the R workspace? And how do you remove individual objects?
+
+```{r, eval = FALSE}
+# List available objects in the R workspace
+ls()
+#OR
+objects()
+
+# Remove individual objects, here vars10, x, EDPS845allusers.
+
+rm(vars10, x, EDPS845allusers)
+```
 
 ### Chapter 2
 
 1. Create and index a vector using a logical, integer, negative integer, and character vector.
+```{r, eval = FALSE}
+x1 <- c(4, -11, 2001)
+#OR
+assign("x2", c(1, -2, 3, -4, 5, -6))
+
+
+```
 
 2. Create and index a vector using a logical, integer, negative integer, and character vector.
+```{r, eval = FALSE}
 
+
+```
 3. Create a simple data frame containing a numeric variable, character variable, and factor with at least 3 levels. Use the data frame to demonstrate how R codes and handles missing data. 
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 3
 
 1. Demonstrate how to check and change the modes and attributes of R objects.
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 4
 
 1. Complete the exercise on page 17, where you calculate 95% confidence intervals for state mean incomes.
+```{r, eval = FALSE}
 
+
+```
 2. In what order are the levels of ordered factors stored in?
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 5
 
 1. Create an array with dimensions `c(3, 6, 2)` and use it to demonstrate array indexing.
+```{r, eval = FALSE}
 
+
+```
 2. Create a two dimensional array of 100 integers sampled with replacement from the vector 1:20, and use an index array to set the diagonal values to 0.
+```{r, eval = FALSE}
 
+
+```
 3. Construct the same array using the `array()` function and using a vector with the `dim()` set. Prove they are the same.
+```{r, eval = FALSE}
 
+
+```
 4. Use your array from 5.1, and another with the same dimensions, to demonstrate how arithmetic works with arrays.
+```{r, eval = FALSE}
 
+
+```
 5. Show how to clear the dimensions of an array.
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 6
 
 1. Demonstrate the different ways of subsetting a list.
+```{r, eval = FALSE}
 
+
+```
 2. What is the difference between giving multiple lists to `list()` versus `c()`?
+```{r, eval = FALSE}
 
+
+```
 3. How do data frames in R relate to lists?
+```{r, eval = FALSE}
 
+
+```
 4. What is the purpose of `attach()`?
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 7
 
 1. Demonstrate the different approaches to reading in data from an external file.
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 8
 
 1. Demonstrate the use of distribution functions to simulate data and calculate probabilities and quantiles.
+```{r, eval = FALSE}
 
+
+```
 2. Simulate data from a t distribution and check their normality.
+```{r, eval = FALSE}
 
+
+```
 ### Chapter 9
 
 1. What is the difference between `if() else` and `ifelse()`?
+```{r, eval = FALSE}
 
+
+```
 2. Demonstrate the use of a `for()` loop.
+
+```{r, eval = FALSE}
+
+
+```
