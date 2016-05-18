@@ -79,5 +79,3 @@ Your file should have an Rmd extension, and you should check that it compiles to
 
 2. Demonstrate the use of a `for()` loop.
 
-
-
