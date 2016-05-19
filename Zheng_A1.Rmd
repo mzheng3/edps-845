@@ -131,9 +131,26 @@ exercises <-sports[c("pingpong", "tennis")]
 ```
 3. Create a simple data frame containing a numeric variable, character variable, and factor with at least 3 levels. Use the data frame to demonstrate how R codes and handles missing data. 
 ```{r, eval = FALSE}
+ID <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+Math <- c(78, 89, 92, NA, 93, 68, 85, NA, 90, 87)
+Math_NA <- is.na(Math)
 
+Gender <- c("male", "female", "female", "male", "male", 
+            "female", "male", "female", "male", "female")
+Gender_factor <- factor(Gender)
+SES_factor <- factor (c("high", "low", "medium", "low", "low", 
+                 "medium", "high", "high", "low", "medium"))
 
+data.frame(ID= ID, Gender = Gender_factor, SES = SES_factor, Math = Math)
 
+MathAchievement <- data.frame(ID= ID, Gender = Gender_factor, SES = SES_factor, Math = Math)
+
+MathAchievement <- apply(MathAchievement, 4, sum, na.rm = T)
+
+#Missing data
+Math_NA <- is.na(Math) # is.na(Math) gives a logical vector of the same size as Math with value TRUE if and only if the corresponding element is Maht is NA.
+# A different example
+z <- c(1:3,NA, 7:10, NA); z_NA <- is.na(z)
 ```
 #Other codes in Chapter 2
 ```{r, eval = FALSE}
@@ -292,7 +309,7 @@ cis$stderr <- NULL
 colnames(cis)
 
 ```
-### Chapter 6
+### Chapter 6-Lists and data frames
 
 1. Demonstrate the different ways of subsetting a list.
 ```{r, eval = FALSE}
@@ -339,7 +356,15 @@ Student <- c ("Emily", "Grad", "Female")
 ```
 3. How do data frames in R relate to lists?
 ```{r, eval = FALSE}
-# A data frame is a list with class "data.frame".
+#List example
+Lst <- list(Country="U.S", School="UNL", Dept= "EDPS",
+programs.students=c(30,20,25,10))
+Lst # no particular need for the components to be of the same mode or type, a list can consist of a numeric vector, a logical value, a matrix, and a complex vector, a character array, a function, and so on
+
+# A data frame is a list with class "data.frame". A data frame example.
+data.frame(ID= ID, Gender = Gender_factor, SES = SES_factor, Math = Math)
+MathAchievement <- data.frame(ID= ID, Gender = Gender_factor, SES = SES_factor, Math = Math)
+MathAchievement
 #There are restrictions on lists that may be made into data frames, namely
 # The components must be vectors (numeric, character, or logical), factors, numeric matrices,
 #lists, or other data frames.
@@ -353,6 +378,7 @@ Student <- c ("Emily", "Grad", "Female")
 #differing modes and attributes. It may be displayed in matrix form, and its rows and columns
 #extracted using matrix indexing conventions.
 
+
 ```
 4. What is the purpose of `attach()`?
 ```{r, eval = FALSE}
@@ -363,27 +389,31 @@ attach(Lst)
 
 #attach () is a generic function that allows not only directories and data frames to be attached to the search path, but other classes of object as well. In particular, any object of mode "list" may be attached in the same way.
 
+# a different example with data frame used.
+attach(MathAchievement)
 ```
-### Chapter 7
+### Chapter 7--Reading data from files
 
 1. Demonstrate the different approaches to reading in data from an external file.
 ```{r, eval = FALSE}
+#Method 1, read.table() function
 read.table () #Function to read tables
 
-PISA_usa_math_44 <- read.table ("C:\Users\Zheng\Desktop\Summer 2016\EDPS 845 R\edps-845\Booklet1_44_recoded")
+2012PISA.math_44_847 <- read.delim("C:/Users/Zheng/Desktop/2012PISA math_44_847.txt", header=FALSE)
+test1 <- read.csv("C:/Users/Zheng/Desktop/Summer 2016/EDPS 845 R/edps-845/in-class/test1.csv")
 
-data1 <- read.table ("3ALIKE")
-
-View(EDPS845data1)
-View(`3ALIKE`)
-
-inp <- scan("3ALIKE.DAT", list("",0,0))
-label <- inp[[1]]; x <- inp[[2]]; y <- inp[[3]]
-inp <- scan("3ALIKE.DAT", list(id="", x=0, y=0))
-
+#Method 2, scan() function
+scan () # to read the data
+inp <- scan("data1.DAT", list("",0,0)) # the 2nd argument is a dummy liststructure to read three vectors
+label <- inp[[1]]; x <- inp[[2]]; y <- inp[[3]] # to establish the mode of the three vectors to be read.
+#OR 
+inp <- scan("data1.DAT", list(id="", x=0, y=0))
+label <- inp$id; x <- inp$x; y <- inp$y
+# a different example
+X <- matrix(scan("data2.dat", 0), ncol=5, byrow=TRUE) # a single value and not a list, a single vector is read in, all components with the same mode as the dummy value.
 
 ```
-### Chapter 8
+### Chapter 8-Probability distributions
 
 1. Demonstrate the use of distribution functions to simulate data and calculate probabilities and quantiles.
 ```{r, eval = FALSE}
@@ -406,10 +436,8 @@ qqline(x)
 
 shapiro.test(x) #Check the normality
 ks.test(x, "pnorm", mean = mean(x), sd = sqrt(var(x))) #Check the normality
-
-
 ```
-### Chapter 9
+### Chapter 9--Grouping, loops, and conditional execution
 
 1. What is the difference between `if() else` and `ifelse()`?
 ```{r, eval = FALSE}
@@ -419,7 +447,7 @@ ks.test(x, "pnorm", mean = mean(x), sd = sqrt(var(x))) #Check the normality
 #then evident.
 #The "short-circuit" operators && and || are often used as part of the condition in an if
 #statement. Whereas & and | apply element-wise to vectors, && and || apply to vectors of length one, and only evaluate their second argument if necessary.
-
+if (expr_1) expr_2 else expr_3 #where expr 1 must evaluate to a single logical value and the result of the entire expression is then evident.
 # for ifelse()
 #There is a vectorized version of the if/else construct, the ifelse function. This has the
 #form ifelse(condition, a, b) and returns a vector of the length of its longest argument, with elements a[i] if condition[i] is true, otherwise b[i].
@@ -428,9 +456,20 @@ ks.test(x, "pnorm", mean = mean(x), sd = sqrt(var(x))) #Check the normality
 2. Demonstrate the use of a `for()` loop.
 
 ```{r, eval = FALSE}
-
+#Example 1
 for(state in statef) {
   print(mean(incomes[statef == state]))
 }
 
+#Example 2
+
+x<- c(1:20)
+y<- c(101:120)
+
+xc <- split(x, ind) # split() function to produce a list of vectors obtained by splitting a vector according to the classes specified by a factor
+yc <- split(y, ind)
+for (i in 1:length(yc)) {
+plot(xc[[i]], yc[[i]])
+abline(lsfit(xc[[i]], yc[[i]]))
+}
 ```
