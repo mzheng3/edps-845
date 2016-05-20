@@ -235,6 +235,16 @@ cis <- data.frame(mean = incmeans, stderr =  incster,
 ```{r, eval = FALSE}
 # The levels of factors are stored in alphabtical order, or in the order they were specified to factor if they were specified explicitly.
 Order() # to created ordered factors 
+#Exmple 1.
+EDPS845allusers <- c("Tony",  "Yage",  "Jayden",  "Mingying(Emily)", "Catherine (katie)", "Pamela (Pam)", "Liuhan (Sophie)",  "Mark", "Brooke", "Chansuk", "Benjamin (Ben)")
+order(EDPS845allusers)
+
+#Example 2.
+state <- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa",
+"qld", "vic", "nsw", "vic", "qld", "qld", "sa", "tas",
+"sa", "nt", "wa", "vic", "qld", "nsw", "nsw", "wa",
+"sa", "act", "nsw", "vic", "vic", "act")
+order(state)
 
 ```
 ### Chapter 5--Arrays and matrices
