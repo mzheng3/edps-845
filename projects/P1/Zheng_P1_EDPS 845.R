@@ -1,31 +1,44 @@
-#############################################################################
-# SIMULATED EXAMPLE 2: Simulated data according to the Rasch testlet model
-#############################################################################
+#Zheng P1 EDPS 845
+library(knitr)
+```{r}
 
-set.seed(678)
-N <- 3000   # number of persons
-I <- 4      # number of items per testlet
-TT <- 3     # number of testlets
 
-ITT <- I*TT
-b <- round( stats::rnorm( ITT , mean=0 , sd = 1 ) , 2 )
-sd0 <- 1 # sd trait
-sdt <- seq( 0 , 2 , len=TT ) # sd testlets
-sdt <- sdt
-# simulate theta
-theta <- stats::rnorm( N , sd = sd0 )
-# simulate testlets
-ut <- matrix(0,nrow=N , ncol=TT )
-for (tt in 1:TT){
-  ut[,tt] <- stats::rnorm( N , sd = sdt[tt] )
+```
+?"knitr"
+
+library(equate)
+library(knitr)
+test1 <- read.csv("test1.csv", row.names = 1) 
+setwd("C:/Users/Zheng/Desktop/Summer 2016/EDPS 845 R/edps-845/in-class/")
+
+(f = system.file(test1, "knitr-minimal.Rnw", package = "knitr"))
+knit(f)  # compile to tex
+
+purl(f)  # tangle R code
+purl(f, documentation = 0)  # extract R code only
+purl(f, documentation = 2)  # also include documentation
+
+
+```{r}
+#Rewrite the loop replacing tapply with our own function
+dstudy2 <- function(thetest){
+  out <- matrix(NA, nrow = length(levels(thetest$schoolid)), ncol = 9)
+
+  for(j in 1:4){
+    out[j, ] <- unlist(tapply(thetest[,j], thetest$schoolid, epmr::dstudy))
+  
+  }
+  return(out)
 }
-ut <- ut[ , rep(1:TT,each=I) ]
-# calculate response probability
-prob <- matrix( stats::pnorm( theta + ut + matrix( b , nrow=N , ncol=ITT ,
-                                                   byrow=TRUE ) ) , N, ITT)
-Y <- (matrix( stats::runif(N*ITT) , N , ITT) < prob )*1
-colMeans(Y)
-# define testlets
-testlets <- rep(1:TT , each=I )
-burnin <- 300
-iter <- 1000
+
+# Rewrite without the for loop
+dstudy3 <- function(thetest, whatcols, another = "blabla") {
+  apply(thetest[, whatcols], 2, dstudy)
+} # another = "blabla", ... to add/define a different function within a function.
+
+#test it
+lapply(test, function(x) apply(x[, 1:4], 2, dstudy)) # lappy = list of apply
+lapply(test$test1, dstudy2)
+lapply(test$test1, dstudy3)
+
+```
