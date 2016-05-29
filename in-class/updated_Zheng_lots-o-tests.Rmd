@@ -48,10 +48,10 @@ for(i in 1:13)
 # 2. Prep the data for analysis. Run a frequency table on every variable and summarize the results, noting any unexpected values, and the counts of missings by subtest and test.
 
 ```{r, eval = FALSE} 
-testlets13 <- list(test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13) 
-names(testlets13) <- paste0("test", 1:13)
-names(testlets13) 
-length(testlets13)
+test <- list(test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13) 
+names(test) <- paste0("test", 1:13)
+names(test) 
+length(test)
 ```
 
 ```{r, eval = FALSE}
@@ -63,14 +63,14 @@ apply(PISA$totals$b1, 2, summary) # Summary for columns in test1
 ```
 
 ```{r, eval = FALSE}
-lapply(testlets13, apply, 1, table)
+lapply(test, apply, 1, table)
 #Frequency for 13 testlets, in rows.
-lapply(testlets13, apply, 2, table)
+lapply(test, apply, 2, table)
 #Frequency for 13 testlets, in columns.
 ?apply
 ?lapply
-lapply(testlets13, apply, 1, summary) # summary for 13 testlets in rows.
-lapply(testlets13, apply, 2, summary) # summary for 13 testlets in columns.
+lapply(test, apply, 1, summary) # summary for 13 testlets in rows.
+lapply(test, apply, 2, summary) # summary for 13 testlets in columns.
 ```
 
 ?epmr
@@ -138,9 +138,32 @@ sumcomp(test13) #sum of complete observations in test13.
 ```{r, eval = FALSE}
 library("equate")
 test <- list(test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13)
-
+# long way
 test$test1$schoolid <- PISA$students[rownames(test$test1), "schoolid"]
-test$test2$schoolid <- PISA$students[rownames(test$test2), "schoolid"] test$test3$schoolid <- PISA$students[rownames(test$test3), "schoolid"] test$test4$schoolid <- PISA$students[rownames(test$test4), "schoolid"] test$test5$schoolid <- PISA$students[rownames(test$test5), "schoolid"] test$test6$schoolid <- PISA$students[rownames(test$test6), "schoolid"] test$test7$schoolid <- PISA$students[rownames(test$test7), "schoolid"] test$test8$schoolid <- PISA$students[rownames(test$test8), "schoolid"] test$test9$schoolid <- PISA$students[rownames(test$test9), "schoolid"] test$test10$schoolid <- PISA$students[rownames(test$test10), "schoolid"] test$test11$schoolid <- PISA$students[rownames(test$test11), "schoolid"] test$test12$schoolid <- PISA$students[rownames(test$test12), "schoolid"] test$test13$schoolid <- PISA$students[rownames(test$test13), "schoolid"]
+test$test2$schoolid <- PISA$students[rownames(test$test2), "schoolid"] 
+test$test3$schoolid <- PISA$students[rownames(test$test3), "schoolid"] 
+test$test4$schoolid <- PISA$students[rownames(test$test4), "schoolid"] 
+test$test5$schoolid <- PISA$students[rownames(test$test5), "schoolid"] 
+test$test6$schoolid <- PISA$students[rownames(test$test6), "schoolid"] 
+test$test7$schoolid <- PISA$students[rownames(test$test7), "schoolid"] 
+test$test8$schoolid <- PISA$students[rownames(test$test8), "schoolid"] 
+test$test9$schoolid <- PISA$students[rownames(test$test9), "schoolid"] 
+test$test10$schoolid <- PISA$students[rownames(test$test10), "schoolid"] 
+test$test11$schoolid <- PISA$students[rownames(test$test11), "schoolid"] 
+test$test12$schoolid <- PISA$students[rownames(test$test12), "schoolid"] 
+test$test13$schoolid <- PISA$students[rownames(test$test13), "schoolid"]
+
+test[["test1"]]$schoolid <- PISA$students[rownames(test[["test1"]]), "schoolid"]
+names(test)
+name(test) <- paste0("test", 1:13)
+for(i in names(test)) test[[i]]$schoolid <- PISA$students[rownames(test[[i]]), "schoolid"]
+#test[[i]] is the dataframe, #test[[i]]$schoolid is used to enter the factor.
+
+
+# the rigth way
+for (i in 1:5) print(rnorm(8))
+
+for(i in names(test)) test[[i]]$schoolid <- PISA$students[rownames(test[[i]]), "schoolid"]
 
 for(i in names(test)) test[[i]]$schoolid <- PISA$students[rownames(test[[i]]), "schoolid"]
 #test[[i]] is the dataframe, #test[[i]]$schoolid is used to enter the factor.
@@ -148,12 +171,15 @@ for(i in names(test)) test[[i]]$schoolid <- PISA$students[rownames(test[[i]]), "
 rownames(test1)
 colnames(test1)
 
+# more 
+
 ```
 
 
 
+
 ```{r, eval = FALSE} 
-testlets13 <- list(test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13)
+test <- list(test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12, test13)
 
 names(test) <- paste0("test", 1:13)
 test$test1$schoolid <- PISA$students[rownames(test$test1), "schoolid"]
@@ -161,13 +187,15 @@ test$test1$schoolid <- PISA$students[rownames(test$test1), "schoolid"]
 for(i in 1:13)
   assign(paste0("test", i), read.csv(paste0("test", i, ".csv"), row.names = 1))
 
-for(testname in names(tests))
-  test[[testname]]$schoolid <-
-  PISA$students[rownames(test[[testname]], '"schoolid"]
+#for(testname in names(tests))
+ # test[[testname]]$schoolid <-
+  #PISA$students[rownames(test[[testname]], '"schoolid"]
 
-for(i in names(testlets13))
+
+for(i in names(test)){
   test[[i]]$schoolid <-
   PISA$students[rownames(testlets13[[i]], '"schoolid"]
+}
 
 
 q()
@@ -176,59 +204,107 @@ q()
 
 ```
 
+```{r, eval = FALSE} 
 View(test1)
 names(PISA)
-testlets13 <- list(test1, test2, test3, test4, test5, test6,test7, test8, test9, test10, test11, test12, test13)
+test <- list(test1, test2, test3, test4, test5, test6,test7, test8, test9, test10, test11, test12, test13)
+names(test) <- paste0("test", 1:13)
+head(test$test1)
 
-rownames(testlets13$test1)
-testlets13$test1$schoolid <- PISA$students[rownames(testlets13$test1), "schoolid"]
-testlets13$test2$schoolid <- PISA$students[rownames(testlets13$test2), "schoolid"]
-
-
-testlets13[["test2"]]
-
-
-mydata[]
-
+test$test1$schoolid <- PISA$students[rownames(test$test1), "schoolid"]
+test$test2$schoolid <- PISA$students[rownames(test$test2), "schoolid"]
 for(i in 1:13)
   assign(paste0("test", i), read.csv(paste0("test", i, ".csv"), row.names = 1))
-  
-for(i in 1:13)
-  testlets13[[paste0("test", i)]], read.csv(paste0("test", i, ".csv"), row.names = 1))
-  
 
+colnames(test$test1)
+
+rownames(test$test1)
+colnames(test$test1)
+
+#My attempt
 test1$schoolid <- c(1:406)
   View(test1)
-  
-  
-for(i in 1:13)
-  assign(paste0("test", i), read.csv(paste0("test", i, ".csv"), row.names = 1))
+```
+
+#4. Find descriptives for each test and subtest by school. Collate the results into a snazzy table using either `knitr::kable()` or `xtable::xtable()`. Descriptives can be obtained with `epmr::dstudy()`.
+```{r, eval = FALSE}
 
 
-4. Find descriptives for each test and subtest by school. Collate the results into a snazzy table using either `knitr::kable()` or `xtable::xtable()`. Descriptives can be obtained with `epmr::dstudy()`.
+```
+
+
 ```{r, eval = FALSE}
 m1items <- as.character(PISA$items$itemid[PISA$items$clusterid == "m1"])
 m1items
-rstudy(PISA$students[1:4, m1items])
+library("epmr")
+epmr::rstudy(PISA$students[1:4, m1items])
+PISA$students[1:4, m1items]
 head(PISA$items)
 PISA$items$itemid[PISA$items$clusterid == "m1"]
 m1items
 unique(PISA$items$clusterid)
 levels(PISA$items$clusterid)
-for(i in levels(PISA$items$clusterid)){}
+#for(i in levels(PISA$items$clusterid)){}
 for(i in levels(PISA$items$clusterid)){
   PISA$items$itemid[PISA$items$clusterid == i]
 }
 PISA$items$itemid[PISA$items$clusterid == "m1"]
 library("epmr")
 rstudy(PISA$students[, m1items])
+```
+
+```{r, eval = FALSE}
+#How to find the descriptives for each test and subtest by school 
+# for all students taking m1;
+
+m1items <- as.character(PISA$items$itemid[PISA$items$clusterid == "m1"])
+m1items
+# for all students taking m1by bookid.
+rstudy(PISA$students[, m1items])
+rstudy(PISA$students[PISA$students$bookid == 1, m1items])
+
 
 for(i in levels(PISA$items$clusterid)) {
   print(PISA$items$itemid[PISA$items$clusterid == "i""])
 }
 library("epmr")
-rstudy(PISA$students[, m1items])
+```
+```{r}
+# by test and subtest
+rout <- numeric ()
+for (i in names (test)){
+for (j in 1:4){
+temcluster <- colnames(test[[i]][j])
+tempitems <- as.character(PISA$items$itemid[PISA$items$clusterid == temcluster])
+rstudy()
+}
+}
+```
+```{r}
+#Combine in a matrix, and print as a table
+droutb<- data.frame(out, rout)
+
+```
+for (i in 1:13{
+for (j in 1:4){
+temcluster <- colnames(test[[i]][j])
+tempitems <- as.character(PISA$items$itemid[PISA$items$clusterid == temcluster])
+print(rstudy(PISA$students[PISA$students$bookid == i, tempitems])[1,1])
+rstudy()
+}
+}
+
+# how to get the descrptives cross items
+for(i in levels(PISA$items$clusterid)) {
+  print(PISA$items$itemid[PISA$items$clusterid == "i""])
+}
+
 rstudy(PISA$students[, i])
+
+test <- list(test1, test2, test3, test4, test5, test6,test7, test8, test9, test10, test11, test12, test13)
+
+epmr::dstudy(test$test1$m1[test$test1$schoolid == 1])
+
 ```
 
 ```{r, eval = FALSE}
@@ -297,9 +373,71 @@ for (i in names(test)) {
   }
 }
 ```
-5. Find descriptives and internal consistency reliabilities for each subtest, by test, and collate them into another nice table. Your table should also summarize results by subject area. Reliabilities can be obtained with `epmr::rstudy()`.
+##5. Find descriptives and internal consistency reliabilities for each subtest, by test, and collate them into another nice table. Your table should also summarize results by subject area. Reliabilities can be obtained with `epmr::rstudy()`.#
+
+```{r, eval = FALSE}
+m1items <- as.character(PISA$items$itemid[PISA$items$clusterid == "m1"])
+m1items
+# dstudy to get descriptives.
+for(i in names(test)) {
+    for (j in 1:4) {
+  print(dstudy(test[[i]][,j]))
+    }
+}
+
+#notes 
+out <- matrix (NA, nrow = 52, ncol =8)
+out
+
+for(i in names(test)) {
+    for (j in 1:4) {
+  out[] <- dstudy(test[[i]][,j]))
+    }
+}
+
+for(i in 1:13) {
+    for (j in 1:4) {
+  out[(1:4) + 4*(i-1),],  <- dstudy(test[[i]][,j]))
+    }
+}
+
+out <- matrix (NA, nrow = 52, ncol =9)
+for(i in 1:13) {
+    for (j in 1:4) {
+  out[j + 4*(i-1), 1:9]  <- 
+  dstudy(test[[i]][,j])
+    }
+}
+
+for(i in 1:13) {
+    for (j in 1:4) {
+  out[j + 4*(i-1), 1:9]  <- 
+  unlist(dstudy(test[[i]][,j]))
+    }
+}
+
+temp <- for(i in names(test)) {
+    for (j in 1:4) {
+  dstudy(test[[i]][,j])
+    }
+}
+
+##lapply
+data.frame(matrix(unlist(lapply(test, apply, 2, dstudy)), nrow =52, ncol = 9))
+
+lapply(test, apply, 2, dstudy)
+```
+
+for(i in names(test)) {
+    for (j in 1:4) {
+  print(apply(PISA$itemid[[i]][,j],PISA$items$itemid[PISA$items$clusterid == "i""], epmr::rstudy))
+    }
+
+
+
+```
 
 # tapply in your second loop, just use apply.
+tapply(test$test1[, 1:4], 2, tapply, test$test1$schoolid, epmr::dstudy)
 
-
-6. We know that any test administered in written form will require, to some extent, reading ability, though the test itself may not be intended to measure reading ability. We also know that science often involves some amount of math ability. Use linear models to examine the relationships between science, as a dependent variable, and math and reading, as independent variables. Note that only 6 of the 13 tests contain a math, reading, and science subtest. If a test contains more than one subtest in a subject area, choose one. Summarize results across these 6 tests.
+#6. We know that any test administered in written form will require, to some extent, reading ability, though the test itself may not be intended to measure reading ability. We also know that science often involves some amount of math ability. Use linear models to examine the relationships between science, as a dependent variable, and math and reading, as independent variables. Note that only 6 of the 13 tests contain a math, reading, and science subtest. If a test contains more than one subtest in a subject area, choose one. Summarize results across these 6 tests.

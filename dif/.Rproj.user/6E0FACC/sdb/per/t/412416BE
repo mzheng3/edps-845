@@ -1,0 +1,18 @@
+{
+    "contents" : "#' @title Simulate Dichotomous Data\n#'\n#' @description This Function simulates dichotomous data.\n#'\n#'@details Here are some details about our cool function\n#'This function was developed in front of the EDPS-845 class.\n#'A few of them tried to type these things as we wrote this section.\n#'\n#'@param n required number of observations. If\n#'\\code{length(n) > 1}, the length is taken to be the number required.\n#'@param v1, v2 two values from which random sample will be taken.\n#'@examples\n#'\n#' # Generate dichotomous data for 10 people\n#' dsim(10)\n#'\n#' # Show that dsim is comparable to round(runif())\n#' mean(sapply(1:1000, function(i)\n#' mean(dsim(100))))\n#' mean(sapply(1:1000, function(i)\n#' mean(round)))\n\n#'\n#'@export\ndsim <- function(n, v1 = 0, v2 = 1) {\n  if(!is.numeric(n))\n    stop(\"'n' must be numeric, obviously.\")\n  if(length(n) > 1)\n    n <- length(n)\n  out <- sample (0:1, n, replace = TRUE)\n  return(out)\n\n}\n\ndsim(100)\nround(runif(10))\nsample(c(0, 1), 10, replace = T)\n\n\n\nlibrary(devtools)\nsetwd(\"C:/Users/Zheng/Desktop/Summer 2016/dif\")\ngetwd()\ndevtools::create_description()\ndevtools::document()\n",
+    "created" : 1464196753151.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2967400186",
+    "id" : "412416BE",
+    "lastKnownWriteTime" : 1464199972,
+    "path" : "C:/Users/Zheng/Desktop/Summer 2016/dif/R/dsim.R",
+    "project_path" : "R/dsim.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
