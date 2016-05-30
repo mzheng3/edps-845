@@ -33,19 +33,19 @@ irtstudy <- function(x, complete = FALSE, ...) {
   if(is.null(inames))
     inames <- paste0("item", 1:ni)
   xl <- data.frame(score = c(unlist(x)), person = rep(1:np, ni),
-                   item = rep(1:ni, each = np), row.names = NULL)
+    item = rep(1:ni, each = np), row.names = NULL)
 
   m <- lme4::glmer(score ~ -1 + (1 | item) + (1 | person),
-                   data = xl, family = "binomial")
+    data = xl, family = "binomial")
   dat <- data.frame(x, theta = unlist(lme4::ranef(m)$person))
   ip <- data.frame(a = 1, b = -unlist(lme4::ranef(m)$item), c = 0,
-                   row.names = inames)
+    row.names = inames)
   dat$se <- rtef(ip, dat$theta)$se
 
   out <- list(data = dat, ip = ip, np = np, ni = ni,
-              vc = unlist(lme4::VarCorr(m)),
-              fit = c(AIC = AIC(m), BIC = BIC(m), logLik = logLik(m),
-                      deviance = deviance(m), df.residual = df.residual(m)))
+    vc = unlist(lme4::VarCorr(m)),
+    fit = c(AIC = AIC(m), BIC = BIC(m), logLik = logLik(m),
+      deviance = deviance(m), df.residual = df.residual(m)))
   class(out) <- c("irtstudy", "list")
 
   return(out)
@@ -59,7 +59,7 @@ print.irtstudy <- function(x, ...) {
   print(x$fit)
   cat("\nRandom effects\n")
   print(data.frame(Std.Dev = sqrt(x$vc), Var = x$vc,
-                   row.names = c("person", "item")))
+    row.names = c("person", "item")))
 }
 
 # Item response function
@@ -75,7 +75,7 @@ rirf <- function(ip, theta = seq(-4, 4, length = 100)){
     stop("'ip' can only contain up to three parameters per item.")
   ni <- NROW(ip)
   out <- rbind(sapply(1:ni, function(i) ip[i, 3] + (1 - ip[i, 3]) /
-                        (1 + exp(ip[i, 1] * (-theta + ip[i, 2])))))
+      (1 + exp(ip[i, 1] * (-theta + ip[i, 2])))))
   colnames(out) <- rownames(ip)
   out <- data.frame(theta = theta, out)
   return(out)
@@ -108,7 +108,7 @@ rief <- function(ip, theta = seq(-4, 4, length = 100)){
 rtrf <- function(ip, theta = seq(-4, 4, length = 100)){
 
   out <- data.frame(theta = theta,
-                    p = apply(rirf(ip, theta)[, -1], 1, sum))
+    p = apply(rirf(ip, theta)[, -1], 1, sum))
   return(out)
 }
 
@@ -118,7 +118,7 @@ rtrf <- function(ip, theta = seq(-4, 4, length = 100)){
 rtif <- function(ip, theta = seq(-4, 4, length = 100)){
 
   out <- data.frame(theta = theta,
-                    i = apply(riif(ip, theta)[, -1], 1, sum))
+    i = apply(riif(ip, theta)[, -1], 1, sum))
   return(out)
 }
 
@@ -128,6 +128,8 @@ rtif <- function(ip, theta = seq(-4, 4, length = 100)){
 rtef <- function(ip, theta = seq(-4, 4, length = 100)){
 
   out <- data.frame(theta = theta,
-                    se = 1 / sqrt(rtif(ip, theta)$i))
+    se = 1 / sqrt(rtif(ip, theta)$i))
   return(out)
 }
+
+irtstudy(booklet1)

@@ -36,10 +36,20 @@ dsim(100)
 round(runif(10))
 sample(c(0, 1), 10, replace = T)
 
-
-
+?lme4
+??rpat
+?rpat
+?irtoys
 library(devtools)
 setwd("C:/Users/Zheng/Desktop/Summer 2016/dif")
 getwd()
 devtools::create_description()
 devtools::document()
+
+?unlist
+list(booklet1)
+unlist(booklet1) # to produce a vector of all atomic components in a matrix (here booklet1),
+#i.e., a single long vector of matrix booklet1.
+
+help("!")
+help("paste0")
