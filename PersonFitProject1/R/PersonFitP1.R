@@ -76,9 +76,6 @@ Personfit <- function(x, complete = FALSE, ...) {
 
 }
 
-
-
-
 #Test personfit function
 personfit <- function(x) {
   attach(x)
