@@ -36,9 +36,10 @@ difLR <- function(x, group, focal, complete = TRUE,
   m3 <- lme4::glmer(score ~ -1 + (1 | item) + (1 | group)* (1 | reference),
                     data = xl, family = "binomial")
 
-  anova(m1, m2)
-  anova(m2, m3)
-  anova(m1, m3)
+  anova(m1, m2) ## To compare the uniform DIF.
+  anova(m2, m3) ## To compare the non-uniform DIF;
+  anova(m1, m3) ## To Detect if DIF is present (without consideration of the presentation of
+  ##uniform or non-uniform DIF)
 
   out <- list(data = x, group = group, reference = reference,
               fit = c(AIC = AIC(m1),
