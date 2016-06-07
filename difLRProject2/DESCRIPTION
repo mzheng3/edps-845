@@ -1,11 +1,11 @@
 Package: difLR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Logistic Regression Differential Item Functioning 
 Version: 0.1
-Date: 2016-06-01
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Date: 2016-06-06
+Author: Mingying Zheng
+Maintainer: Mingying Zheng <emilyzheng7569@gmail.com>
+Description: Functions for estimating differential item functioning with a set of scored item responses.The difLR is used to Calculate the "logistic regression" likelihood-ratio statistics and effect sizes for DIF detection"Logistic" for logistic regression
+License: YEAR: 2016 COPYRIGHT HOLDER: Mingying Zheng
 LazyData: TRUE
 RoxygenNote: 5.0.1

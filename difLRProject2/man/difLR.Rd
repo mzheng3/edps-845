@@ -4,25 +4,34 @@
 \alias{difLR}
 \title{Differential Item Functioning Study}
 \usage{
-difLR(x, group, focal, complete = TRUE, na.rm = FALSE)
+difLR(x, member, member.type = "group", match = "score",
+  anchor = 1:ncol(x), type = "both", criterion = "LRT")
 }
 \arguments{
-\item{x}{matrix or data.frame of scored item responses.}
+\item{x}{matrix or data.frame whose rows correspond to the subjects and columns to the items..}
 
-\item{complete}{logical with default \code{TRUE} indicating whether or not
-\code{x} should be reduced to rows with complete data across all columns.}
+\item{member}{is group indicates the column of Data which corresponds to the group membership, either by specifying its name or by giving the column}
+
+\item{member.type}{either "group" (default) to specify that group membership is made of two groups,
+or "cont" to indicate that group membership is based on a continuous criterion.}
+
+\item{anchor}{is a vector of integer values specifying which items (all by default) are currently considered as anchor (DIF free) items.}
+
+\item{type}{is a character string specifying which DIF effects must be tested. Possible values are "both" (default), "udif" and "nudif".}
+
+\item{criterion}{a character string specifying which DIF statistic is computed. Possible values are "LRT" (default) or "Wald".}
+
+\item{SCORES}{are the test score, or any continuous or discrete variable with the same length as the number of rows of Data}
 
 \item{na.rm}{logical with default \code{FALSE} specifying whether missings
 should be removed before calculating individual descriptives.}
 
-\item{subset}{optional vector for selecting a subset of columns from \code{x}.}
-
-\item{scores}{optional vector of construct scores.}
-
-\item{groups}{optional grouping variable.}
+\item{GROUP}{optional grouping variable.}
 }
 \description{
 Functions for estimating differential item functioning with a set of
-scored item responses.
+scored item responses.The difLR is used to Calculate the "logistic regression"
+likelihood-ratio statistics and effect sizes for DIF detection"Logistic" for logistic regression
+(Swaminathan and Rogers,1990).
 }
 
